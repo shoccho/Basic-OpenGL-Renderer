@@ -30,7 +30,7 @@ add_executable(main ${SOURCES})
 if(APPLE)
     set(libGL "-framework OpenGL")
 else()
-    set(libGL "gl")
+    set(libGL "GL")
 endif()
 
 # Link libraries
