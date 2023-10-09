@@ -9,7 +9,7 @@ out float dt;
 void main(){
     gl_Position = vec4(position.x, position.y,0,1);
     dt = u_dt;
-};
+}
 
 #shader fragment
 #version 330 core
@@ -19,4 +19,4 @@ in float dt;
 
 void main(){
     color = vec4(abs(cos(dt)),abs(tan(dt)),abs(sin(dt)), 1);
-};
+}

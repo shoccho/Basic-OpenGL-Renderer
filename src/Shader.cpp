@@ -82,7 +82,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string &text)
         char *message = (char *)alloca(sizeof(char) * length);
         glGetShaderInfoLog(id, length, &length, message);
 
-        std::cout << "Error: " << message << "\n";
+        std::cout << "Shader Error: " << message << "\n";
         glDeleteShader(id);
     }
 
