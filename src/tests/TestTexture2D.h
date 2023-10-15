@@ -20,7 +20,8 @@ namespace test{
         void OnImGuiRender() override;
 
     private:
-        glm::vec3 m_Translation1, m_Translation2;
+        int m_Count;
+        std::vector<glm::vec3> m_Translations;
         glm::mat4 m_View, m_Projection;
         std::unique_ptr<VertexArray> m_VAO;
         std::unique_ptr<VertexBuffer> m_VBO;

@@ -8,10 +8,15 @@
 
 namespace test {
     TestTexture2D::TestTexture2D()
-    :m_Translation1(200,200,0),m_Translation2(400,400,0),
+     :m_Count(10),
      m_View(glm::translate(glm::mat4(1.0f) ,glm::vec3(0,0,0))),
      m_Projection(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f))
 {
+        for(int i=0;i<m_Count;i++){
+            int x = rand() % 960 ;
+            int y = rand() % 540;
+            m_Translations.emplace_back(x,y,0);
+        }
         float positions[] = {
                 -50.0f, 50.0f, 0.0f, 1.0f, //bottom right
                 50.0f,  50.0f, 1.0f, 1.0f, //top right
@@ -49,6 +54,19 @@ namespace test {
 
     void TestTexture2D::OnUpdate(float dt) {
         m_Shader->SetUniform1f("u_dt",dt);
+        int currElements = m_Translations.size();
+        if(currElements>m_Count){
+            while (currElements>m_Count) {
+                m_Translations.pop_back();
+                currElements--;
+            }
+        }else{
+            for(int i=currElements;i<m_Count;i++){
+                int x = rand() % 960 ;
+                int y = rand() % 540;
+                m_Translations.emplace_back(x,y,0);
+            }
+        }
     }
 
     void TestTexture2D::OnRender() {
@@ -58,18 +76,8 @@ namespace test {
 
         m_Texture->Bind();
         Renderer renderer;
-        {
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation1);
-            glm::mat4 mvp = m_Projection * m_View * model;
-
-            m_Shader->Bind();
-            m_Shader->SetUniformMat4f("u_MVP", mvp);
-            renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
-        }
-
-        //second
-        {
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translation2);
+        for(int i =0;i<m_Count;i++){
+            glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Translations[i]);
             glm::mat4 mvp = m_Projection * m_View * model;
 
             m_Shader->Bind();
@@ -81,9 +89,13 @@ namespace test {
     void TestTexture2D::OnImGuiRender() {
 
         ImGuiIO& io = ImGui::GetIO();
-        ImGui::SliderFloat3("Translation 1", &m_Translation1.x,0.0f,960.0f);
 
-        ImGui::SliderFloat3("Translation 2", &m_Translation2.x,0.0f,960.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+        ImGui::SliderInt("count", &m_Count,0.,1000);
+
+        for(int i=0;i<m_Count;i++){
+            std::string label = "T: "+ std::to_string(i);;
+            ImGui::SliderFloat3(label.c_str(), &m_Translations[i].x,0.0f,960.0f);
+        }
     }
 }

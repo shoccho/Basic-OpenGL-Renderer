@@ -51,7 +51,7 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     // smooth interval?? vsync?
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
     glfwSetErrorCallback(errorCallback);
     GLenum err = glewInit();
     if (GLEW_OK != err)
@@ -79,7 +79,9 @@ int main(void)
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init();
-
+        auto currentFrame = glfwGetTime();
+        auto lastFrame = glfwGetTime();
+        auto  deltaTime = currentFrame - lastFrame;
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
@@ -111,8 +113,10 @@ int main(void)
 
             /* Poll for and process events */
             glfwPollEvents();
-            dt+=0.05;
-
+            currentFrame = glfwGetTime();
+            deltaTime = currentFrame - lastFrame;
+            dt+=deltaTime;
+            lastFrame = currentFrame;
         }
         if(currentTest != menu){
             delete menu;
