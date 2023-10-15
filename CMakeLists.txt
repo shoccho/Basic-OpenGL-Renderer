@@ -16,11 +16,11 @@ add_subdirectory(${GLFW_DIR})
 # Source files for the project
 include_directories(include)  
 
+# not sure if we want the headers here
 file(GLOB SRC "${CMAKE_SOURCE_DIR}/src/*.cpp")
-set(SOURCES ${SRC})
+file(GLOB HEADERS "${CMAKE_SOURCE_DIR}/include/*.h")
 
-#set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*;-I/include;")
-
+set(SOURCES ${SRC} ${HEADERS})
 add_definitions(-std=c++17)
 
 # Executable
@@ -35,7 +35,3 @@ endif()
 
 # Link libraries
 target_link_libraries(main libglew_static glfw ${libGL})
-
-# Copy shaders to build directory
-file(GLOB SHADERS "${CMAKE_SOURCE_DIR}/res/shaders/*.glsl")
-file(COPY ${SHADERS} DESTINATION ${CMAKE_BINARY_DIR}/res/shaders)
