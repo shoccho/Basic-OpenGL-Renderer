@@ -114,7 +114,7 @@ void Shader::SetUniform1f(const std::string &name, float v0)
 }
 
 //TODO: handle unknown uniform names
-int Shader::getUniformLocation(const std::string &name)
+int Shader::getUniformLocation(const std::string &name) const
 {
     if( m_UniformLocations.find(name) != m_UniformLocations.end()){
         return m_UniformLocations[name];

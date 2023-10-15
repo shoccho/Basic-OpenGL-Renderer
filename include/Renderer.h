@@ -20,12 +20,9 @@
 
 void GlClearError();
 
-//TODO: make this std::string to const char*
-
-bool GlLogCall(std::string function, std::string fileName, int line);
+bool GlLogCall(const std::string& function, const std::string& fileName, int line);
 
 class Renderer{
-
 public:
     void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
     void Clear() const;

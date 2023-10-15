@@ -11,7 +11,7 @@ void GlClearError()
     ;
 }
 
-bool GlLogCall(std::string function, std::string fileName, int line)
+bool GlLogCall(const std::string& function, const std::string& fileName, int line)
 {
   while (GLenum error = glGetError())
   {
@@ -24,7 +24,8 @@ bool GlLogCall(std::string function, std::string fileName, int line)
 
 void Renderer::Clear() const {
     /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT);
+    GL_CALL(glClearColor(0.0f,0.0f,0.0f,0.0f));
+    GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 
 }
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const

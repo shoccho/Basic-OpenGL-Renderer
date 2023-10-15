@@ -30,8 +30,11 @@ include_directories(include "${CMAKE_SOURCE_DIR}/src/vendor/imgui")
 file(GLOB SRC "${CMAKE_SOURCE_DIR}/src/*.cpp")
 file(GLOB HEADERS "${CMAKE_SOURCE_DIR}/include/*.h")
 file(GLOB IMGUI "${CMAKE_SOURCE_DIR}/src/vendor/imgui/*" )
+file(GLOB TESTS "${CMAKE_SOURCE_DIR}/src/tests/*" )
 
-set(SOURCES ${SRC} ${HEADERS} ${IMGUI})
+set(SOURCES ${SRC} ${HEADERS} ${IMGUI} ${TESTS}
+        src/tests/Test.cpp
+        src/tests/TestTexture2D.cpp)
 
 add_definitions(-std=c++17)
 # Executable
