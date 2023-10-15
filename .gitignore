@@ -4,6 +4,8 @@
 /CMakeCache.txt
 /CMakeScripts/
 /cmake-build-debug*/
+/cmake-build-release*/
+
 # Ignore compiled executables and libraries
 *.out
 *.so
