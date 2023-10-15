@@ -13,6 +13,13 @@ set(GLFW_DIR "${CMAKE_SOURCE_DIR}/external/glfw")
 # Build GLFW as a shared library
 add_subdirectory(${GLFW_DIR})
 
+# Set GLM path
+set(glm_DIR "${CMAKE_SOURCE_DIR}/external/glm")
+
+# Build GLM as a shared library
+add_subdirectory(${glm_DIR})
+#find_path(glm REQUIRED)
+
 # Source files for the project
 include_directories(include)  
 
@@ -34,4 +41,4 @@ else()
 endif()
 
 # Link libraries
-target_link_libraries(main libglew_static glfw ${libGL})
+target_link_libraries(main libglew_static glfw ${libGL}  glm::glm)

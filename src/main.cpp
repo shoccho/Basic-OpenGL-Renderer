@@ -10,6 +10,8 @@
 #include "VertexBufferLayout.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 int main(void)
 {
@@ -57,10 +59,10 @@ int main(void)
     //  glfwSetCursorPosCallback(window, mouse_callback);
     {
         float positions[] = {
-                -0.5f, 0.5f, 0.0f, 1.0f, //bottom right
-                0.5f,  0.5f, 1.0f, 1.0f, //top right
-                0.5f, -0.5f, 1.0f, 0.0f, //top left
-                -0.5f, -0.5f, 0.0f, 0.0f //bottom left
+                100.0f, 200.0f, 0.0f, 1.0f, //bottom right
+                200.0f,  200.0f, 1.0f, 1.0f, //top right
+                200.0f, 100.0f, 1.0f, 0.0f, //top left
+                100.0f, 100.0f, 0.0f, 0.0f //bottom left
         };
 
         uint indices[] = {
@@ -79,6 +81,10 @@ int main(void)
 
         IndexBuffer ib(indices, 6);
 
+        glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
+        glm::mat4 view = glm::translate(glm::mat4(1.0f) ,glm::vec3(-100,0,0));
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200,200,0));
+        glm::mat4 mvp =proj * view *  model ;
         Shader shader("../res/shaders/shader.glsl");
         Texture texture("../res/textures/texture.png");
 
@@ -100,6 +106,7 @@ int main(void)
             texture.Bind();
             //tell the shader to use texture ( 0 cuz slot 0 default change it if needed)
 
+            shader.SetUniformMat4f("u_MVP", mvp);
             shader.SetUniform1i("u_Texture",0);
             shader.SetUniform1f("u_dt", dt);
             renderer.Draw(va,ib,shader);
