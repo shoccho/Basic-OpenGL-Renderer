@@ -18,6 +18,7 @@
 #include "tests/Test.h"
 #include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
+#include "tests/TestTexture2DBatch.h"
 
 void errorCallback(int code, const char* msg){
     std::cout<<"error "<<code<<" msg "<<msg<<std::endl;
@@ -37,7 +38,7 @@ int main(void)
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(1920, 540, "Hello World", NULL, NULL);
@@ -67,8 +68,9 @@ int main(void)
     currentTest = menu;
 
     menu->AddTest<test::TestClearColor>("Clear Color");
-
     menu->AddTest<test::TestTexture2D>("Texture 2D");
+    menu->AddTest<test::TestTexture2DBatch>("Texture 2D Batch");
+
     float dt=0;
     //scope for rendering
     {
@@ -104,8 +106,6 @@ int main(void)
                 ImGui::End();
             }
 
-
-            //end of redundant code
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
             /* Swap front and back buffers */

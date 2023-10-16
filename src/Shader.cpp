@@ -12,7 +12,6 @@ Shader::Shader(const std::string &filepath)
 {
     ShaderSource source = ParseShader(filepath);
     m_RendererId = CreateShader(source.vertexSource, source.fragmentSource);
-
 }
 
 Shader::~Shader()
@@ -119,10 +118,7 @@ int Shader::getUniformLocation(const std::string &name) const
     if( m_UniformLocations.find(name) != m_UniformLocations.end()){
         return m_UniformLocations[name];
     }
-
     int location = glGetUniformLocation(m_RendererId, name.c_str());
-    std::cout<<"uniform "<<name<<" location "<<location<<std::endl;
-
     m_UniformLocations[name] = location;
     return location;
 }
@@ -133,4 +129,8 @@ void Shader::SetUniform1i(const std::string &name, int v0) {
 
 void Shader::SetUniformMat4f(const std::string &name, const glm::mat4& matrix) {
     GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+}
+
+void Shader::SetUniform1iv(const std::string &name, int size, const int *data) {
+    GL_CALL(glUniform1iv(getUniformLocation(name),2, data));
 }
