@@ -4,13 +4,35 @@
 
 I hope to make this a bit more usable to learn more about openGL and shaders and overall graphics programming.
 
+### Todo:
+
+  - [X] Create a basic openGL Renderer
+  
+  - [X] Add support for batch rendering
+    
+  - [ ] Making a renderable entity class ( this can be huge and need to decide how much granular it will be )
+  
+  - [ ] fix memory leak in batch renderer
+  
+  - [ ] add camera controls
+        
+  - [ ] configurable prespective?
+      
+  - [ ] 3D thingies?
+  
+  - [ ] make the whole thing a lib 
+
 
 ### Current state:
-  - this project only renders a rectangle (see the screenshot) but you can modify the verticies and shaders to draw anything you want.
-  - Runs on Linux and MacOs with cmake being the only dependencie.
+  - Can draw textured elements
+  - Supports batch rendering ( not in a sense that you can just create a bunch of elements and it'll render them in batch, just that you can utilize batch rending using openGL using this renderer )
+  - there is a memory leak in batch rendering test
+  - Runs on Linux and MacOs with cmake being the only dependencie. can run on windows by changing a lib but opengl support in vms are really bad it seems
     
 #### Screenshot
-<img width="752" alt="Screenshot 2023-10-09 at 4 58 22 PM" src="https://github.com/shoccho/Basic-OpenGL-Renderer/assets/33720947/22449f9f-baa3-49b4-8c17-665d0b55fca2">
+
+<img width="1072" alt="Screenshot 2023-10-18 at 4 06 38 AM" src="https://github.com/shoccho/Basic-OpenGL-Renderer/assets/33720947/ce6d109b-4559-47b4-a1aa-efdd4ad1c86f">
+Rendering 100,000 quads with textures and animated colors at 30+fps on a macbook pro with m1 pro chip
 
     
 ### Requirements:
