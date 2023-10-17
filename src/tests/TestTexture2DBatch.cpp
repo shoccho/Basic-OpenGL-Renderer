@@ -71,8 +71,8 @@ namespace test {
         m_VBO=std::make_unique<VertexBuffer>(m_VBuffer.data(), sizeof(Vertex)*8);
 
         VertexBufferLayout layout;
-        layout.Push(GL_FLOAT, 3);//vertex location  0.5,-0.5...
-        layout.Push(GL_FLOAT, 4);//color  0.5,-0.5...
+        layout.Push(GL_FLOAT, 3); //vertex location  0.5,-0.5...
+        layout.Push(GL_FLOAT, 4); //color  0.5,-0.5...
         layout.Push(GL_FLOAT, 2); //texture coord 0.0f, 1.0f...
         layout.Push(GL_FLOAT, 1); // which shader
 
@@ -95,14 +95,9 @@ namespace test {
 
         int currentItems = m_VBuffer.size()/4;
         if (currentItems!=m_Count) {
-            while (currentItems > m_Count) {
-                for(int k = 0;k <4;k++) {
-                    m_VBuffer.pop_back();
-                }
-                currentItems--;
-                for(int k = 0;k <4;k++) {
-                    m_Indices.pop_back();
-                }
+            if (currentItems > m_Count) {
+                m_VBuffer.resize(m_Count*4);
+                m_Indices.resize(m_Count*6);
             }
             if (currentItems < m_Count) {
                 for (int i = 0; i < (m_Count - currentItems); i++) {
@@ -161,6 +156,5 @@ namespace test {
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
         ImGui::SliderInt("count", &m_Count,0.,100000);
-//        ImGui::SliderFloat3("translation", &m_Translation.x,0.0f,960.0f);
     }
 }

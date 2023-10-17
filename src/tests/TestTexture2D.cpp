@@ -91,11 +91,6 @@ namespace test {
         ImGuiIO& io = ImGui::GetIO();
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-        ImGui::SliderInt("count", &m_Count,0.,100000);
-
-//        for(int i=0;i<m_Count;i++){
-//            std::string label = "T: "+ std::to_string(i);;
-//            ImGui::SliderFloat3(label.c_str(), &m_Translations[i].x,0.0f,960.0f);
-//        }
+        ImGui::SliderInt("count", &m_Count,0.,10000);
     }
 }

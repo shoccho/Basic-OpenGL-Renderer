@@ -13,7 +13,7 @@ namespace test{
     class TestTexture2DBatch : public Test{
     public:
         TestTexture2DBatch();
-        ~TestTexture2DBatch() {}
+        ~TestTexture2DBatch(){};
 
         void OnUpdate(float deltaTime) override;
         void OnRender() override;

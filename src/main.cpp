@@ -41,7 +41,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 540, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(960, 540, "Basic renderer", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
