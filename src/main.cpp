@@ -52,7 +52,7 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     // smooth interval?? vsync?
-    glfwSwapInterval(0);
+    glfwSwapInterval(1);
     glfwSetErrorCallback(errorCallback);
     GLenum err = glewInit();
     if (GLEW_OK != err)

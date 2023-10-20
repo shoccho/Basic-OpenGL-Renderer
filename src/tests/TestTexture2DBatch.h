@@ -31,5 +31,6 @@ namespace test{
         std::unique_ptr<Shader> m_Shader;
         std::unique_ptr<Texture> m_Texture1;
         std::unique_ptr<Texture> m_Texture2;
+        std::unique_ptr<VertexBufferLayout> m_Layout;
     };
 }

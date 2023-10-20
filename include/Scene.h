@@ -3,17 +3,31 @@
 
 class Scene : public Node{
 public:
-    Scene(Node*& currentTestPointer);
-    virtual ~Scene() {}
-
-    void OnImGuiRender() override;
-
-    template<typename T>
-    void AddTest(const std::string& name){
-        std::cout<<"Adding test: "<<name<<std::endl;
-        m_Tests.push_back(std::make_pair(name, [](){return new T();}));
+    Scene();
+    virtual ~Scene() {
+        m_Nodes.clear();
     }
+
+    void AddNode(const std::string& name, Node* node){
+        std::cout<<"Adding Node: "<<name<<std::endl;
+        m_Nodes.push_back(std::make_pair(name, node));
+    }
+    void OnUpdate(float deltaTime){
+        for(auto node: m_Nodes){
+            node.second->OnUpdate(deltaTime);
+        }
+    }
+    void OnRender(){
+        for(auto node: m_Nodes){
+            node.second->OnRender();
+        }
+    }
+    void OnImGuiRender(){
+        for(auto node: m_Nodes){
+            node.second->OnImGuiRender();
+        }
+    }
+
 private:
-    Node*& m_CurrentTest;
-    std::vector<std::pair<std::string, std::function<Node*()> >> m_Tests;
+    std::vector<std::pair<std::string,Node*>> m_Nodes;
 };

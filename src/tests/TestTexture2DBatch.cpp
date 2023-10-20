@@ -70,13 +70,14 @@ namespace test {
         }
         m_VBO=std::make_unique<VertexBuffer>(m_VBuffer.data(), sizeof(Vertex)*8);
 
-        VertexBufferLayout layout;
-        layout.Push(GL_FLOAT, 3); //vertex location  0.5,-0.5...
-        layout.Push(GL_FLOAT, 4); //color  0.5,-0.5...
-        layout.Push(GL_FLOAT, 2); //texture coord 0.0f, 1.0f...
-        layout.Push(GL_FLOAT, 1); // which shader
+        m_Layout = std::make_unique<VertexBufferLayout>();
+//        VertexBufferLayout layout;
+        m_Layout->Push(GL_FLOAT, 3); //vertex location  0.5,-0.5...
+        m_Layout->Push(GL_FLOAT, 4); //color  0.5,-0.5...
+        m_Layout->Push(GL_FLOAT, 2); //texture coord 0.0f, 1.0f...
+        m_Layout->Push(GL_FLOAT, 1); // which shader
 
-        m_VAO->AddBuffer(*m_VBO, layout);
+        m_VAO->AddBuffer(*m_VBO, *m_Layout);
 
         m_IndexBuffer = std::make_unique<IndexBuffer>(m_Indices.data(),m_Indices.size());
 
@@ -119,12 +120,7 @@ namespace test {
                 }
             }
             m_VBO->UpdateBuffer(m_VBuffer.data(), sizeof(Vertex) * m_VBuffer.size());
-            VertexBufferLayout layout;
-            layout.Push(GL_FLOAT, 3);//vertex location  0.5,-0.5...
-            layout.Push(GL_FLOAT, 4);//color  0.5,-0.5...
-            layout.Push(GL_FLOAT, 2); //texture coord 0.0f, 1.0f...
-            layout.Push(GL_FLOAT, 1); // which shader
-            m_VAO->AddBuffer(*m_VBO,layout);
+            m_VAO->AddBuffer(*m_VBO, *m_Layout);
             auto t = std::make_unique<IndexBuffer>(m_Indices.data(),m_Indices.size());
             m_IndexBuffer.swap(t);
         }
