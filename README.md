@@ -10,7 +10,11 @@ I hope to make this a bit more usable to learn more about openGL and shaders and
   
   - [X] Add support for batch rendering
     
-  - [ ] Making a renderable entity class ( this can be huge and need to decide how much granular it will be )
+  - [X] Making a renderable entity class
+
+  - [ ] Convert tests into scene + renderable
+  
+  - [ ] make the whole thing a lib 
   
   - [ ] fix memory leak in batch renderer
   
@@ -19,8 +23,6 @@ I hope to make this a bit more usable to learn more about openGL and shaders and
   - [ ] configurable prespective?
       
   - [ ] 3D thingies?
-  
-  - [ ] make the whole thing a lib 
 
 
 ### Current state:
