@@ -31,9 +31,10 @@ file(GLOB SRC "${CMAKE_SOURCE_DIR}/src/*.cpp")
 file(GLOB HEADERS "${CMAKE_SOURCE_DIR}/include/*.h")
 file(GLOB IMGUI "${CMAKE_SOURCE_DIR}/src/vendor/imgui/*" )
 file(GLOB STB_IMAGE "${CMAKE_SOURCE_DIR}/src/vendor/stb_image/*" )
-file(GLOB TESTS "${CMAKE_SOURCE_DIR}/src/tests/*" )
+file(GLOB TESTS "${CMAKE_SOURCE_DIR}/src/tests/*")
+file(GLOB EXAMPLES "${CMAKE_SOURCE_DIR}/src/examples/*/*")
 
-set(SOURCES ${SRC} ${HEADERS} ${IMGUI} ${STB_IMAGE} ${TESTS})
+set(SOURCES ${SRC} ${HEADERS} ${IMGUI} ${STB_IMAGE} ${TESTS} ${EXAMPLES})
 
 add_definitions(-std=c++17)
 # Executable
@@ -42,9 +43,11 @@ add_executable(main ${SOURCES})
 # APPLE -_-
 if(APPLE)
     set(libGL "-framework OpenGL")
-else()
+elseif(UNIX)
     set(libGL "GL")
+else()
+    set(libGL "opengl32")
 endif()
 
 # Link libraries
-target_link_libraries(main libglew_static glfw ${libGL}  glm::glm )
+target_link_libraries(main libglew_static glfw ${libGL} glm::glm)

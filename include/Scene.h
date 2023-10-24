@@ -1,33 +1,26 @@
 #pragma once
-#include "Node.h"
 
-class Scene : public Node{
+#include "Node.h"
+#include "Renderable.h"
+
+class Scene : public Node {
 public:
-    Scene();
+    Scene() {};
+
     virtual ~Scene() {
         m_Nodes.clear();
     }
 
-    void AddNode(const std::string& name, Node* node){
-        std::cout<<"Adding Node: "<<name<<std::endl;
-        m_Nodes.push_back(std::make_pair(name, node));
-    }
-    void OnUpdate(float deltaTime){
-        for(auto node: m_Nodes){
-            node.second->OnUpdate(deltaTime);
-        }
-    }
-    void OnRender(){
-        for(auto node: m_Nodes){
-            node.second->OnRender();
-        }
-    }
-    void OnImGuiRender(){
-        for(auto node: m_Nodes){
-            node.second->OnImGuiRender();
-        }
-    }
+    void AddNode(const std::string &name, std::shared_ptr<Renderable> renderable);
+
+    void OnUpdate(float deltaTime);
+
+    void OnRender();
+
+    void OnImGuiRender();
+
+    const std::vector<std::pair<std::string, std::shared_ptr<Renderable>>> &GetMNodes() const;
 
 private:
-    std::vector<std::pair<std::string,Node*>> m_Nodes;
+    std::vector<std::pair<std::string, std::shared_ptr<Renderable >>> m_Nodes;
 };

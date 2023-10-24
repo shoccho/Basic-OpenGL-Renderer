@@ -121,13 +121,9 @@ namespace test {
             }
             m_VBO->UpdateBuffer(m_VBuffer.data(), sizeof(Vertex) * m_VBuffer.size());
             m_VAO->AddBuffer(*m_VBO, *m_Layout);
-            auto t = std::make_unique<IndexBuffer>(m_Indices.data(),m_Indices.size());
-            m_IndexBuffer.swap(t);
+            auto indexBuffer = std::make_unique<IndexBuffer>(m_Indices.data(),m_Indices.size());
+            m_IndexBuffer.swap(indexBuffer);
         }
-
-        //clear screen
-        GL_CALL(glClearColor(0.0f,0.0f,0.0f,0.0f));
-        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 
         int idx[2] = {0,1};
 
@@ -147,7 +143,6 @@ namespace test {
     }
 
     void TestTexture2DBatch::OnImGuiRender() {
-
         ImGuiIO& io = ImGui::GetIO();
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);

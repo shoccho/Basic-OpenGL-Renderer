@@ -67,7 +67,7 @@ void Shader::Unbind() const
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string &text)
 {
-    uint id = glCreateShader(type);
+    unsigned int id = glCreateShader(type);
     const char *src = text.c_str();
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
